@@ -1,0 +1,74 @@
+<div id="vonal"><h3>{{ heading_title }}</h3></div>
+<div class="row">
+<div id="owl-featureddia">
+ 	{% for product in products %}
+  <div class="owl-item col-md-3 col-sm-6 col-xs-12" id="kiemeltdb">
+    <div class="product-thumb transition">
+      <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a></div>
+      <div class="caption">
+      {{ limit }}
+        <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+        <p>{{ product.description }}</p>
+        {% if product.rating %}
+        <div class="rating">
+          {% for i in 1..4 %}
+          {% if product.rating < i %}
+          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+          {% else %}
+          <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if product.price %}
+        <p class="price">
+          {% if not product.special %}
+          {{ product.price }}
+          {% else %}
+          <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+          {% endif %}
+          {% if product.tax %}
+          <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+          {% endif %}
+        </p>
+        {% endif %}
+      </div>
+      <div class="button-group">
+        <button type="button" onclick="cart.add('{{ product.product_id }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md" id="zold">{{ button_cart }}</span></button>
+                <a href="{{ product.href }}"><button type="button" id="reszletek">Részletek</button></a>
+                
+	{% if new %}
+		Enabled
+    {% else %}
+	 	False
+    {% endif %}
+       
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+	var dbdiv = $("#kiemeltdb > div").length;
+	console.log(dbdiv);
+	if (dbdiv = 4){
+		dbdiv = 4;
+	} else if (dbdiv <= 3){
+		dbdiv = 3;
+	}
+	console.log(dbdiv);
+  $("#owl-featureddia").owlCarousel({
+    autoPlay: 2000, //Set AutoPlay to 3 seconds
+    items:dbdiv,
+    itemsDesktop: [1199, dbdiv],
+    itemsDesktopSmall: [979, 2],
+	itemsMobile: [579, 1],
+	singleItem : false
+  });
+
+});
+</script>
