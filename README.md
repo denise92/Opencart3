@@ -2,7 +2,8 @@ I would like to add a variable/display in common/header twig file, which can be 
 
 I added in: admin/view/template/extension/module/starter_module.twig
 
-‘‘‘
+
+```
 <div class="form-group">
         <label class="col-sm-2 control-label" for="input-new">New</label>
         <div class="col-sm-10">
@@ -17,11 +18,11 @@ I added in: admin/view/template/extension/module/starter_module.twig
         </select>
         </div>
 </div>
-‘‘‘
+```
 
 in admin/controller/extension/module/starter_module.php
 
-‘‘‘
+```
 if (isset($this->request->post['new'])) {
   $data['new'] = $this->request->post['new'];
 } elseif (!empty($module_info)) {
@@ -29,21 +30,21 @@ if (isset($this->request->post['new'])) {
 } else {
   $data['new'] = '';
 }
-‘‘‘
+```
 
 in catalog/controller/extension/module/starter_module.php
 
-‘‘‘
+```
             $data['new'] = $this->config->get('new');
 
             $data['new'] = (int) $setting['new'];  
-‘‘‘
+```
 
 in catalog/view/theme/default/template/common/header.twig
 
-‘‘‘
+```
 {% if new %}Enabled {% else %} disabled{% endif %}
-‘‘‘
+```
 
 But always I got the result only disabled, what is missing? cannot be sent variable from extension to common header?
 
